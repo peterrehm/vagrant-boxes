@@ -24,3 +24,21 @@ $ vagrant package --base php7box.vb
 ````
 
 You can then upload `~/vagrant-boxes/package.box` and upload e.g. to Atlas.
+
+````sh
+# add a new version of the box
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/versions \
+        -X POST \
+        -d version[version]='0.3.0' \
+        -d access_token={token}
+
+# add a new provider
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/version/0.3.0/providers \
+-X POST \
+-d provider[name]='virtualbox' \
+-d access_token={token}
+
+# 2-step upload process
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/version/0.3.0/provider/virtualbox/upload?access_token={token}
+curl -X PUT --upload-file package.box https://binstore.hashicorp.com/{response token of previous command}
+````
