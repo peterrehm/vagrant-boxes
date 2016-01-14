@@ -13,7 +13,7 @@
 
 - name: add user vagrant zu www-data
   become: yes
-  shell: sudo adduser vagrant www-data
+  shell: adduser vagrant www-data
 
 - name: Install System Packages
   become: yes
