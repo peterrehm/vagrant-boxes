@@ -32,6 +32,7 @@
     - xfonts-utils
     - libsasl2-dev
     - pkg-config
+    - language-pack-en-base
 
 - name: Add ppa Repository
   become: yes
