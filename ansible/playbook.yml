@@ -1,0 +1,18 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    web_server: nginxphp
+    servername: php7box.vb 10.10.10.10
+    timezone: Europe/Berlin
+  vars_files:
+    - vars/mysql.yml
+    - vars/common.yml
+    - vars/nginxphp.yml
+  roles:
+    - init
+    - php
+    - nginx
+    - mysql
+    - mongodb
+    - composer
