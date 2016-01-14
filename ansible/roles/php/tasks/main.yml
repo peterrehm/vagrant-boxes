@@ -1,5 +1,5 @@
 - name: Install php-cli
-  sudo: yes
+  become: yes
   apt: pkg=php7.0-cli state=latest
 
 - name: ensure timezone is set in cli php.ini
@@ -8,11 +8,11 @@
               line='date.timezone = {{ timezone }}'
 
 - name: Install php-fpm
-  sudo: yes
+  become: yes
   apt: pkg=php7.0-fpm state=latest
 
 - name: Install PHP Packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
   with_items: php_packages
 
@@ -37,12 +37,12 @@
               line='memory_limit = 1024M'
 
 - name: Enable xdebug
-  sudo: yes
+  become: yes
   template: src=20-xdebug.ini dest=/etc/php/7.0/fpm/conf.d/20-xdebug.ini
   notify: restart php-fpm
 
 - name: Disable xdebug for CLI
-  sudo: yes
+  become: yes
   file: path=/etc/php7.0/cli/conf.d/20-xdebug.ini state=absent
 
 - name: Install Package

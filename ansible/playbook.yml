@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: true
+  become: true
   vars:
     web_server: nginxphp
     servername: php7box.vb 10.10.10.10

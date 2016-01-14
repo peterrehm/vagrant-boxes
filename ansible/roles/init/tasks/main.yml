@@ -1,22 +1,22 @@
 ---
 - name: Set global UMASK
-  sudo: yes
+  become: yes
   lineinfile: dest=/etc/login.defs state=present regexp='^UMASK' line='UMASK\t\t002'
 
 - name: Update apt
-  sudo: yes
+  become: yes
   apt: update_cache=yes
 
 - name: Update folder permissions
-  sudo: yes
+  become: yes
   shell: chown -R www-data:www-data /vagrant && chmod -R g+rwx /vagrant && chmod g+s /vagrant
 
 - name: add user vagrant zu www-data
-  sudo: yes
+  become: yes
   shell: sudo adduser vagrant www-data
 
 - name: Install System Packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - curl
@@ -34,24 +34,24 @@
     - pkg-config
 
 - name: Add ppa Repository
-  sudo: yes
+  become: yes
   apt_repository: repo=ppa:ondrej/{{ php_ppa }}
 
 - name: Update apt
-  sudo: yes
+  become: yes
   apt: update_cache=yes
 
 - name: Install Extra Packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
 
 - name: Configure the timezone
-  sudo: yes
+  become: yes
   template: src=timezone.tpl dest=/etc/timezone
 
 - name: More Configure the timezone
-  sudo: yes
+  become: yes
   file: src=/usr/share/zoneinfo/{{timezone}} dest=/etc/localtime state=link force=yes backup=yes
 
 - name: Set the hostname in /etc/hostname
@@ -66,7 +66,7 @@
   lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost {{ hostname }}' owner=root group=root mode=0644
 
 - name: Install uglifyjs and uglifycss
-  sudo: yes
+  become: yes
   shell: npm install uglifycss -g && npm install uglify-js -g
 
 - name: newolution| Install sf command aliases
@@ -79,6 +79,6 @@
     - { regexp: 'alias sfprod', line: 'alias sfprod=$(`git rev-parse --show-toplevel --quiet 2>/dev/null` || echo ".")/bin/console --env=prod' }
 
 - name: newolution | Install wkhtmltopdf 0.12.2.1
-  sudo: yes
+  become: yes
   shell: curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb && dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb
 
