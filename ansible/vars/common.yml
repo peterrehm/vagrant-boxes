@@ -4,4 +4,4 @@
     sys_packages: ["git"]
     dist: precise
     php_packages: ["php7.0-cli","php7.0-curl","php7.0-common","php7.0-mysql","php7.0-gd","php7.0-intl","php7.0-opcache", "php7.0-dev"]
-    pecl_packages: ["mongodb", "xdebug-2.4.0RC3"]
+    pecl_packages: ["mongodb"]
