@@ -33,6 +33,7 @@
     - libsasl2-dev
     - pkg-config
     - language-pack-en-base
+    - pdftk
 
 - name: Add ppa Repository
   become: yes
