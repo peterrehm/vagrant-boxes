@@ -45,6 +45,30 @@
   template: src=20-xdebug.ini dest=/etc/php/7.0/fpm/conf.d/20-xdebug.ini
   notify: restart php-fpm
 
+- name: Install apcu
+  become: yes
+  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu
+
+- name: Install apcu apc bc layer
+  become: yes
+  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu_bc-1.0.1
+
+- name: Provide apc template
+  become: yes
+  template: src=20-apc.ini dest=/etc/php/mods-available/apc.ini
+
+- name: Enable apc extension on cli
+  file:
+    src: "/etc/php/mods-available/apc.ini"
+    dest: "/etc/php/7.0/cli/conf.d/20-apc.ini"
+    state: link
+
+- name: Enable apc extension on fpm
+  file:
+    src: "/etc/php/mods-available/apc.ini"
+    dest: "/etc/php/7.0/fpm/conf.d/20-apc.ini"
+    state: link
+
 - name: Install Package
   shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install {{ item }}
   register: pecl_result
@@ -61,14 +85,14 @@
     mode=0644
   with_items: pecl_packages
 
-- name: Enable extesion on cli
+- name: Enable extension on cli
   file:
     src: "/etc/php/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.0/cli/conf.d/20-{{ item }}.ini"
     state: link
   with_items: pecl_packages
 
-- name: Enable extesion on fpm
+- name: Enable extension on fpm
   file:
     src: "/etc/php/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.0/fpm/conf.d/20-{{ item }}.ini"
