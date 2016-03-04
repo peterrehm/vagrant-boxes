@@ -36,9 +36,9 @@
               regexp='memory_limit ='
               line='memory_limit = 1024M'
 
-- name: Install xdebug-2.4.0RC3
+- name: Install xdebug
   become: yes
-  shell: pecl install xdebug-2.4.0RC3
+  shell: pecl install xdebug
 
 - name: Provide xdebug template
   become: yes
