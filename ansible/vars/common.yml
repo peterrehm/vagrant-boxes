@@ -1,5 +1,5 @@
 ---
-    php_ppa: "php-7.0"
+    php_ppa: "php"
     doc_root: "/vagrant/web"
     sys_packages: ["git"]
     dist: precise
