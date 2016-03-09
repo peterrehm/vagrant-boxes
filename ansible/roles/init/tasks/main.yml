@@ -35,6 +35,10 @@
     - language-pack-en-base
     - pdftk
 
+- name: Install phantomjs
+  become: yes
+  shell: curl -O -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && tar xvfj phantomjs-2.1.1-linux-x86_64.tar.bz2 && mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/ && rm -rf phantomjs-2.1.1*
+
 - name: Add ppa Repository
   become: yes
   apt_repository: repo=ppa:ondrej/{{ php_ppa }}
