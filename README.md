@@ -41,4 +41,9 @@ curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/version/0.3.0
 # 2-step upload process
 curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/version/0.3.0/provider/virtualbox/upload?access_token={token}
 curl -X PUT --upload-file package.box https://binstore.hashicorp.com/{response token of previous command}
+
+# release the version
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/symfony-php7/version/0.3.0/release \
+        -X PUT \
+        -d access_token={token}
 ````
