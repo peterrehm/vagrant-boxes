@@ -3,7 +3,7 @@
   become: true
   vars:
     web_server: nginxphp
-    servername: php7box.vb 10.10.10.10
+    servername: trusty-php7.vb 10.10.10.10
     timezone: Europe/Berlin
   vars_files:
     - vars/mysql.yml
