@@ -14,7 +14,7 @@
 - name: Install PHP Packages
   become: yes
   apt: pkg={{ item }} state=latest
-  with_items: php_packages
+  with_items: "{{php_packages}}"
 
 - name: Set permissions on socket - owner
   lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = www-data'"
@@ -74,7 +74,7 @@
   register: pecl_result
   changed_when: "'already installed' not in pecl_result.stdout"
   failed_when: "pecl_result.stderr or ('ERROR' in pecl_result.stdout)"
-  with_items: pecl_packages
+  with_items: "{{pecl_packages}}"
 
 - name: Create extension .ini file
   template: >
@@ -83,18 +83,18 @@
     owner="root"
     group="root"
     mode=0644
-  with_items: pecl_packages
+  with_items: "{{pecl_packages}}"
 
 - name: Enable extension on cli
   file:
     src: "/etc/php/7.0/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.0/cli/conf.d/20-{{ item }}.ini"
     state: link
-  with_items: pecl_packages
+  with_items: "{{pecl_packages}}"
 
 - name: Enable extension on fpm
   file:
     src: "/etc/php/7.0/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.0/fpm/conf.d/20-{{ item }}.ini"
     state: link
-  with_items: pecl_packages
+  with_items: "{{pecl_packages}}"

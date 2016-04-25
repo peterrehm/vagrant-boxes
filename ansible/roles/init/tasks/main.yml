@@ -50,7 +50,7 @@
 - name: Install Extra Packages
   become: yes
   apt: pkg={{ item }} state=latest
-  with_items: sys_packages
+  with_items: "{{sys_packages}}"
 
 - name: Configure the timezone
   become: yes
@@ -86,5 +86,4 @@
 
 - name: newolution | Install wkhtmltopdf 0.12.2.1
   become: yes
-  shell: curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb && dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb
-
+  shell: curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && dpkg -i wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
