@@ -27,8 +27,6 @@ case $1 in
         exit 1
 esac
 
-exit 1
-
 # cleanup previous builds
 vagrant destroy -f
 rm package.box
