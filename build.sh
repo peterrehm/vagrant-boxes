@@ -34,8 +34,6 @@ rm package.box
 # build the box
 vagrant box update
 vagrant up
-vagrant ssh -c 'sudo pecl uninstall xdebug' # hack needed due to issues with the xdebug install
-vagrant up --provision
 vagrant package --base "$1".vb
 
 curl https://atlas.hashicorp.com/api/v1/box/peterrehm/"$1"/versions \

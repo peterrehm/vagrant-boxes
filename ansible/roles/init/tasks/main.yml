@@ -75,7 +75,7 @@
   become: yes
   shell: npm install uglifycss -g && npm install uglify-js -g
 
-- name: newolution| Install sf command aliases
+- name: Install sf command aliases
   lineinfile:
     dest: /home/vagrant/.profile
     regexp: "{{ item.regexp }}"
