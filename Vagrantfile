@@ -2,7 +2,7 @@
 # Vagrant Configuration
 ##################################################
 
-Vagrant.require_version ">= 1.8.1"
+Vagrant.require_version ">= 1.8.4"
 
 ENV['PYTHONIOENCODING'] = "utf-8"
 
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.hostname = "xenial-php7.vb"
-    config.vm.box = "ubuntu/xenial64"
+    config.vm.box = "boxcutter/ubuntu1604"
 
     config.vm.network :private_network, ip: "10.10.10.10"
     config.ssh.forward_agent = true

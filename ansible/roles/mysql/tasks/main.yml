@@ -1,10 +1,27 @@
 ---
+
+
+
+- name: mysql | Set root Password
+  debconf:
+    name: mysql-server
+    question: 'mysql-server/root-pass'
+    value: '' # Set as a variable
+    vtype: password
+
+- name: mysql | Set root Password Again
+  debconf:
+    name: mysql-server
+    question: 'mysql-server/re-root-pass'
+    value: '' # Set as a variable
+    vtype: password
+
 - name: mysql | Install MySQL Packages
   become: yes
   apt: pkg={{ item }} state=latest
   with_items:
-    - mysql-server-5.6
-    - mysql-client-5.6
+    - mysql-server
+    - mysql-client
     - python-mysqldb
 
 - name: mysql | Update root password for all root accounts

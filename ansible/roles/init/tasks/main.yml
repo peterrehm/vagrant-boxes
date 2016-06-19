@@ -34,6 +34,9 @@
     - pkg-config
     - language-pack-en-base
     - pdftk
+    - libx11-6
+    - libxext6
+    - libxrender1
 
 - name: Install phantomjs
   become: yes
