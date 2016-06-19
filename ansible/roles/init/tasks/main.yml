@@ -87,7 +87,7 @@
     - { regexp: 'alias sf', line: 'alias sf=$(`git rev-parse --show-toplevel --quiet 2>/dev/null` || echo ".")/bin/console --env=dev' }
     - { regexp: 'alias sfprod', line: 'alias sfprod=$(`git rev-parse --show-toplevel --quiet 2>/dev/null` || echo ".")/bin/console --env=prod' }
 
-- name: newolution | Install wkhtmltopdf 0.12.2.1
+- name: newolution | Install wkhtmltopdf
   become: yes
   shell: curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb && dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb
 
