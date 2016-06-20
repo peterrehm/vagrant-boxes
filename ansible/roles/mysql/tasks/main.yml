@@ -1,7 +1,4 @@
 ---
-
-
-
 - name: mysql | Set root Password
   debconf:
     name: mysql-server
