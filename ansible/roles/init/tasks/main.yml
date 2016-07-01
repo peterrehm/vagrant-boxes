@@ -3,9 +3,11 @@
   become: yes
   lineinfile: dest=/etc/login.defs state=present regexp='^UMASK' line='UMASK\t\t002'
 
-- name: Update apt
+- name: Update apt packages and perform dist upgrade
   become: yes
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
+    upgrade: dist
 
 - name: Update folder permissions
   become: yes
