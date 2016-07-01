@@ -37,6 +37,7 @@
     - libx11-6
     - libxext6
     - libxrender1
+    - build-essential
 
 - name: Install phantomjs
   become: yes
@@ -61,7 +62,7 @@
 
 - name: More Configure the timezone
   become: yes
-  file: src=/usr/share/zoneinfo/{{timezone}} dest=/etc/localtime state=link force=yes backup=yes
+  file: src=/usr/share/zoneinfo/Europe/Berlin dest=/etc/localtime state=link force=yes backup=yes
 
 - name: Set the hostname in /etc/hostname
   shell: echo {{ hostname }} > /etc/hostname

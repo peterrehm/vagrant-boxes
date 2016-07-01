@@ -5,7 +5,7 @@
 - name: ensure timezone is set in cli php.ini
   lineinfile: dest='/etc/php/7.0/cli/php.ini'
               regexp='date.timezone ='
-              line='date.timezone = {{ timezone }}'
+              line='date.timezone = Europe/Berlin'
 
 - name: Install php-fpm
   become: yes
@@ -29,7 +29,7 @@
 - name: ensure timezone is set in fpm php.ini
   lineinfile: dest=/etc/php/7.0/fpm/php.ini
               regexp='date.timezone ='
-              line='date.timezone = {{ timezone }}'
+              line='date.timezone = Europe/Berlin'
 
 - name: ensure memory limit is 1024M php.ini
   lineinfile: dest='/etc/php/7.0/fpm/php.ini'

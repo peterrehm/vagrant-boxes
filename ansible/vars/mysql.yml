@@ -1,2 +1,2 @@
 mysql:
-    root_password:
+    root_password: "mysql"

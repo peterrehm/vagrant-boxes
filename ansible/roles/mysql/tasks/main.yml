@@ -1,30 +1,35 @@
 ---
+- name: Add MySQL Apt Key
+  apt_key:
+    keyserver: ha.pool.sks-keyservers.net
+    id: A4A9406876FCBD3C456770C88C718D3B5072E1F5
+    state: present
+
+- name: Add MySQL Repository
+  become: yes
+  shell: echo "deb http://repo.mysql.com/apt/ubuntu/ xenial mysql-5.7" | sudo tee /etc/apt/sources.list.d/mysql.list
+
 - name: mysql | Set root Password
   debconf:
-    name: mysql-server
-    question: 'mysql-server/root-pass'
-    value: '' # Set as a variable
+    name: mysql-community-server
+    question: 'mysql-community-server/root-pass'
+    value: '{{ mysql.root_password }}'
     vtype: password
 
 - name: mysql | Set root Password Again
   debconf:
-    name: mysql-server
-    question: 'mysql-server/re-root-pass'
-    value: '' # Set as a variable
+    name: mysql-community-server
+    question: 'mysql-community-server/re-root-pass'
+    value: '{{ mysql.root_password }}'
     vtype: password
 
 - name: mysql | Install MySQL Packages
   become: yes
-  apt: pkg={{ item }} state=latest
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+    update_cache: true
   with_items:
     - mysql-server
     - mysql-client
     - python-mysqldb
-
-- name: mysql | Update root password for all root accounts
-  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mysql.root_password }} login_user=root login_password={{ mysql.root_password }}
-  with_items:
-    - "{{ hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost

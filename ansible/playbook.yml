@@ -4,7 +4,6 @@
   vars:
     web_server: nginxphp
     servername: xenial-php7.vb 10.10.10.10
-    timezone: Europe/Berlin
   vars_files:
     - vars/mysql.yml
     - vars/common.yml

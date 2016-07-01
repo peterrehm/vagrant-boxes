@@ -1,1 +1,1 @@
-{{timezone}}
+Europe/Berlin
