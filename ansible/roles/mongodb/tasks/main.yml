@@ -13,3 +13,23 @@
   apt: pkg={{ item }} state=latest update_cache=yes allow_unauthenticated=yes
   with_items:
     - mongodb-org
+
+- name: mongo | Copy systemd configuration
+  become: yes
+  template: src=mongodb.service.tpl dest=/etc/systemd/system/mongodb.service
+
+- name: mongo | Enable service start on system boot
+  become: yes
+  shell: systemctl enable mongodb
+
+- name: mongo | Copy script to disable transparent hugepages
+  become: yes
+  template: src=hugepages.tpl dest=/etc/init.d/disable-transparent-hugepages
+
+- name: mongo | Make script executeable
+  become: yes
+  file: path=/etc/init.d/disable-transparent-hugepages mode=0755
+
+- name: mongo | Enable script to disable transparent hugepages on system boot
+  become: yes
+  shell: update-rc.d disable-transparent-hugepages defaults
