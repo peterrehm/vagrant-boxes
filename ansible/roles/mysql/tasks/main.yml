@@ -33,3 +33,7 @@
     - mysql-server
     - mysql-client
     - python-mysqldb
+
+- name: mysql | Copy config file with root credentials
+  become: yes
+  template: src=credentials.tpl dest=/etc/mysql/root.cnf
