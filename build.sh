@@ -33,7 +33,12 @@ rm package.box
 
 # build the box
 vagrant box update
+
 vagrant up
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
 vagrant package --base "$1".vb
 
 curl https://atlas.hashicorp.com/api/v1/box/peterrehm/"$1"/versions \
