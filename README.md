@@ -8,7 +8,7 @@ MongoDB, NGINX and other needed tools. Since the configuration is documented wit
 ansible scripts it is easy to setup similar production nodes. 
 
 The official supported boxes are provided through https://atlas.hashicorp.com. At the 
-moment `peterrehm/xenial-php7` (based on `boxcutter/ubuntu1604`) and `peterrehm/trusty-php7` 
+moment `peterrehm/xenial-php7` (based on `bento/ubuntu-16.04`) and `peterrehm/trusty-php7` 
 (based on `ubuntu/trusty64`) are the supported versions.
 
 Meanwhile there will be `peterrehm/trusty-php56` which won't receive updates any more.

@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.hostname = "xenial-php7.vb"
-    config.vm.box = "boxcutter/ubuntu1604"
+    config.vm.box = "bento/ubuntu-16.04"
 
     config.vm.network :private_network, ip: "10.10.10.10"
     config.ssh.forward_agent = true
