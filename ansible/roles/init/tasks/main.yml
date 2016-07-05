@@ -5,7 +5,7 @@
 
 # https://github.com/chef/bento/issues/609#issuecomment-227202607
 - name: Pause 2 Minutes to ensure automatic updates are processed
-  shell: sleep 2
+  shell: sleep 2m
 
 - name: Update apt packages and perform dist upgrade
   become: yes
