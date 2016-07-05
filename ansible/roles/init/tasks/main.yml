@@ -3,14 +3,15 @@
   become: yes
   lineinfile: dest=/etc/login.defs state=present regexp='^UMASK' line='UMASK\t\t002'
 
-- name: Update apt packages
+# https://github.com/chef/bento/issues/609#issuecomment-227202607
+- name: Pause 2 Minutes to ensure automatic updates are processed
+  shell: sleep 2
+
+- name: Update apt packages and perform dist upgrade
   become: yes
   apt:
     update_cache: yes
-
-- name: Upgrade apt packages
-  become: yes
-  shell: apt-get -y upgrade
+    upgrade: dist
 
 - name: Update folder permissions
   become: yes
