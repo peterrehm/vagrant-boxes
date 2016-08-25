@@ -73,14 +73,17 @@
   file: src=/usr/share/zoneinfo/Europe/Berlin dest=/etc/localtime state=link force=yes backup=yes
 
 - name: Set the hostname in /etc/hostname
+  become: yes
   shell: echo {{ hostname }} > /etc/hostname
   when: hostname is defined
 
 - name: Set the hostname
+  become: yes
   shell: hostname {{ hostname }}
   when: hostname is defined
 
 - name: Update /etc/hosts
+  become: yes
   lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost {{ hostname }}' owner=root group=root mode=0644
 
 - name: Install uglifyjs and uglifycss
