@@ -1,0 +1,6 @@
+{
+  "name": "peterrehm/vagrant-boxes",
+  "license": "MIT",
+  "type": "project",
+  "description": "Scripts to build vagrant boxes"
+}
