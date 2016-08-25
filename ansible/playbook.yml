@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  become: true
   vars:
     web_server: nginxphp
     servername: xenial-php7.vb 10.10.10.10
