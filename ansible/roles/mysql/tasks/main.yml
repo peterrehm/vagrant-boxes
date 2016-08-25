@@ -1,5 +1,6 @@
 ---
 - name: Add MySQL Apt Key
+  become: yes
   apt_key:
     keyserver: ha.pool.sks-keyservers.net
     id: A4A9406876FCBD3C456770C88C718D3B5072E1F5
@@ -10,6 +11,7 @@
   shell: echo "deb http://repo.mysql.com/apt/ubuntu/ xenial mysql-5.7" | sudo tee /etc/apt/sources.list.d/mysql.list
 
 - name: mysql | Set root Password
+  become: yes
   debconf:
     name: mysql-community-server
     question: 'mysql-community-server/root-pass'
@@ -17,6 +19,7 @@
     vtype: password
 
 - name: mysql | Set root Password Again
+  become: yes
   debconf:
     name: mysql-community-server
     question: 'mysql-community-server/re-root-pass'
