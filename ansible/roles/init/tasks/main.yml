@@ -45,6 +45,7 @@
     - libxrender1
     - build-essential
     - mydumper
+    - imagemagick
 
 - name: Install phantomjs
   become: yes
