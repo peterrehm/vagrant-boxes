@@ -1,8 +1,9 @@
 ##################################################
 # Vagrant Configuration
+# xenial-php71
 ##################################################
 
-Vagrant.require_version ">= 1.8.4"
+Vagrant.require_version ">= 1.9.0"
 
 ENV['PYTHONIOENCODING'] = "utf-8"
 
