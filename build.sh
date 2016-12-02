@@ -31,8 +31,10 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-vagrant package --base "$1".vb
-
+vagrant package --base xenial-php7.vb
+if [ $? -ne 0 ]; then
+    exit 1
+fi
 curl https://atlas.hashicorp.com/api/v1/box/peterrehm/"$1"/versions \
         -X POST \
         -d version[version]="$2" \
