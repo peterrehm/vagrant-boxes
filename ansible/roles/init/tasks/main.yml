@@ -101,4 +101,4 @@
 
 - name: newolution | Install wkhtmltopdf
   become: yes
-  shell: curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb && dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb
+  shell: curl -O -L http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb && mv wkhtmltox/bin/wkhtmltopdf /usr/local/bin/ && rm -rf wkhtmltox*
