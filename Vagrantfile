@@ -1,6 +1,6 @@
 ##################################################
 # Vagrant Configuration
-# xenial-php71
+# xenial-php72
 ##################################################
 
 Vagrant.require_version ">= 1.9.0"

@@ -6,7 +6,7 @@ fi
 
 case $1 in
 
-    xenial-php71)
+    xenial-php72)
          grep -q $1 Vagrantfile
          if [ $? -eq 1 ]; then
            echo "Looks like you are in the wrong branch. Your Vagrantfile does not contain $1"
@@ -15,7 +15,7 @@ case $1 in
         ;;
 
     *)
-        echo $"Usage: $0 {xenial-php71}"
+        echo $"Usage: $0 {xenial-php72}"
         exit 1
 esac
 
