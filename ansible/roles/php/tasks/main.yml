@@ -1,16 +1,16 @@
 - name: Install php-cli
   become: yes
-  apt: pkg=php7.1-cli state=latest
+  apt: pkg=php7.2-cli state=latest
 
 - name: ensure timezone is set in cli php.ini
   become: yes
-  lineinfile: dest='/etc/php/7.1/cli/php.ini'
+  lineinfile: dest='/etc/php/7.2/cli/php.ini'
               regexp='date.timezone ='
               line='date.timezone = Europe/Berlin'
 
 - name: Install php-fpm
   become: yes
-  apt: pkg=php7.1-fpm state=latest
+  apt: pkg=php7.2-fpm state=latest
 
 - name: Install PHP Packages
   become: yes
@@ -19,36 +19,36 @@
 
 - name: Set permissions on socket - owner
   become: yes
-  lineinfile: "dest=/etc/php/7.1/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = www-data'"
+  lineinfile: "dest=/etc/php/7.2/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = www-data'"
 
 - name: Set permissions on socket - group
   become: yes
-  lineinfile: "dest=/etc/php/7.1/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = www-data'"
+  lineinfile: "dest=/etc/php/7.2/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = www-data'"
 
 - name: Set permissions on socket - mode
   become: yes
-  lineinfile: "dest=/etc/php/7.1/fpm/pool.d/www.conf state=present regexp='^;?listen.mode' line='listen.mode = 0660'"
+  lineinfile: "dest=/etc/php/7.2/fpm/pool.d/www.conf state=present regexp='^;?listen.mode' line='listen.mode = 0660'"
   notify: restart php-fpm
 
 - name: ensure timezone is set in fpm php.ini
   become: yes
-  lineinfile: dest=/etc/php/7.1/fpm/php.ini
+  lineinfile: dest=/etc/php/7.2/fpm/php.ini
               regexp='date.timezone ='
               line='date.timezone = Europe/Berlin'
 
 - name: ensure memory limit is 1024M php.ini
   become: yes
-  lineinfile: dest='/etc/php/7.1/fpm/php.ini'
+  lineinfile: dest='/etc/php/7.2/fpm/php.ini'
               regexp='memory_limit ='
               line='memory_limit = 1024M'
 
 - name: Install xdebug
   become: yes
-  shell: pecl install xdebug
+  shell: pecl install xdebug-beta
 
 - name: Provide xdebug template
   become: yes
-  template: src=20-xdebug.ini dest=/etc/php/7.1/fpm/conf.d/20-xdebug.ini
+  template: src=20-xdebug.ini dest=/etc/php/7.2/fpm/conf.d/20-xdebug.ini
   notify: restart php-fpm
 
 - name: Install apcu
@@ -61,20 +61,20 @@
 
 - name: Provide apc template
   become: yes
-  template: src=20-apc.ini dest=/etc/php/7.1/mods-available/apc.ini
+  template: src=20-apc.ini dest=/etc/php/7.2/mods-available/apc.ini
 
 - name: Enable apc extension on cli
   become: yes
   file:
-    src: "/etc/php/7.1/mods-available/apc.ini"
-    dest: "/etc/php/7.1/cli/conf.d/20-apc.ini"
+    src: "/etc/php/7.2/mods-available/apc.ini"
+    dest: "/etc/php/7.2/cli/conf.d/20-apc.ini"
     state: link
 
 - name: Enable apc extension on fpm
   become: yes
   file:
-    src: "/etc/php/7.1/mods-available/apc.ini"
-    dest: "/etc/php/7.1/fpm/conf.d/20-apc.ini"
+    src: "/etc/php/7.2/mods-available/apc.ini"
+    dest: "/etc/php/7.2/fpm/conf.d/20-apc.ini"
     state: link
 
 - name: Install Package
@@ -89,7 +89,7 @@
   become: yes
   template: >
     src="extension.tpl"
-    dest="/etc/php/7.1/mods-available/{{ item }}.ini"
+    dest="/etc/php/7.2/mods-available/{{ item }}.ini"
     owner="root"
     group="root"
     mode=0644
@@ -98,15 +98,15 @@
 - name: Enable extension on cli
   become: yes
   file:
-    src: "/etc/php/7.1/mods-available/{{ item }}.ini"
-    dest: "/etc/php/7.1/cli/conf.d/20-{{ item }}.ini"
+    src: "/etc/php/7.2/mods-available/{{ item }}.ini"
+    dest: "/etc/php/7.2/cli/conf.d/20-{{ item }}.ini"
     state: link
   with_items: "{{pecl_packages}}"
 
 - name: Enable extension on fpm
   become: yes
   file:
-    src: "/etc/php/7.1/mods-available/{{ item }}.ini"
-    dest: "/etc/php/7.1/fpm/conf.d/20-{{ item }}.ini"
+    src: "/etc/php/7.2/mods-available/{{ item }}.ini"
+    dest: "/etc/php/7.2/fpm/conf.d/20-{{ item }}.ini"
     state: link
   with_items: "{{pecl_packages}}"
