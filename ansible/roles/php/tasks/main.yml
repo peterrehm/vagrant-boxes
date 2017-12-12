@@ -57,7 +57,7 @@
 
 - name: Install apcu apc bc layer
   become: yes
-  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu_bc-1.0.1
+  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu_bc-1.0.3
 
 - name: Provide apc template
   become: yes
