@@ -10,6 +10,10 @@
   become: yes
   apt: update_cache=yes
 
-- name: Install Google Chrome
+- name: Install Google Chrome Stable
   become: yes
   apt: pkg=google-chrome-stable state=installed
+
+- name: Install Google Chrome Unstable
+  become: yes
+  apt: pkg=google-chrome-unstable state=installed

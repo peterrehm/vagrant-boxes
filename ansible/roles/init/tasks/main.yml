@@ -27,7 +27,7 @@
   with_items:
     - curl
     - wget
-    - python-software-properties
+    - software-properties-common
     - npm
     - libfontconfig1
     - silversearcher-ag
@@ -39,7 +39,6 @@
     - libsasl2-dev
     - pkg-config
     - language-pack-en-base
-    - pdftk
     - libx11-6
     - libxext6
     - libxrender1

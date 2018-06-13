@@ -1,31 +1,30 @@
 ##################################################
 # Vagrant Configuration
-# xenial-php72
+# bionic-php72
 ##################################################
 
-Vagrant.require_version ">= 1.9.0"
+Vagrant.require_version ">=2.1.1"
 
 ENV['PYTHONIOENCODING'] = "utf-8"
 
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "xenial-php7.vb"
+        v.name = "bionic-php7.vb"
         v.customize [
             "modifyvm", :id,
-            "--name", "xenial-php7.vb",
+            "--name", "bionic-php7.vb",
             "--memory", 2048,
             "--natdnshostresolver1", "on",
             "--cpus", 1,
         ]
     end
 
-    config.vm.hostname = "xenial-php7.vb"
-    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.hostname = "bionic-php7.vb"
+    config.vm.box = "bento/ubuntu-18.04"
 
     config.vm.network :private_network, ip: "10.10.10.10"
     config.ssh.forward_agent = true
-    config.ssh.pty = true
     config.ssh.insert_key = false
 
     #############################################################
@@ -38,7 +37,20 @@ Vagrant.configure("2") do |config|
         ansible.limit = 'all'
         ansible.extra_vars = {
             private_interface: "10.10.10.10",
-            hostname: "xenial-php7.vb"
+            hostname: "bionic-php7.vb"
         }
     end
+
+    # Picks up from any failed runs
+    # Run this with: "vagrant provision --provision-with resume"
+    config.vm.provision "resume", type: "ansible" do |resume|
+        resume.playbook = "ansible/playbook.yml"
+        resume.inventory_path = "ansible/inventories/dev"
+        resume.limit = '--limit @ansible/playbook.retry'
+        resume.extra_vars = {
+            private_interface: "10.10.10.10",
+            hostname: "bionic-php7.vb"
+        }
+    end
+
 end
