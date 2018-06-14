@@ -40,17 +40,4 @@ Vagrant.configure("2") do |config|
             hostname: "bionic-php7.vb"
         }
     end
-
-    # Picks up from any failed runs
-    # Run this with: "vagrant provision --provision-with resume"
-    config.vm.provision "resume", type: "ansible" do |resume|
-        resume.playbook = "ansible/playbook.yml"
-        resume.inventory_path = "ansible/inventories/dev"
-        resume.limit = '--limit @ansible/playbook.retry'
-        resume.extra_vars = {
-            private_interface: "10.10.10.10",
-            hostname: "bionic-php7.vb"
-        }
-    end
-
 end
