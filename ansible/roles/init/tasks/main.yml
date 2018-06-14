@@ -27,7 +27,7 @@
   with_items:
     - curl
     - wget
-    - python-software-properties
+    - software-properties-common
     - npm
     - libfontconfig1
     - silversearcher-ag
@@ -39,13 +39,21 @@
     - libsasl2-dev
     - pkg-config
     - language-pack-en-base
-    - pdftk
     - libx11-6
     - libxext6
     - libxrender1
     - build-essential
     - mydumper
     - imagemagick
+
+- name: Install pdftk and dependencies since this is not any more included with the bionic packages
+  become: yes
+  apt:
+    deb: "{{ item }}"
+  with_items:
+    - "http://de.archive.ubuntu.com/ubuntu/pool/main/g/gcc-defaults/libgcj-common_6.4-3ubuntu1_all.deb"
+    - "http://de.archive.ubuntu.com/ubuntu/pool/main/g/gcc-6/libgcj17_6.4.0-8ubuntu1_amd64.deb"
+    - "http://archive.ubuntu.com/ubuntu/pool/universe/p/pdftk/pdftk_2.02-4build1_amd64.deb"
 
 - name: Install phantomjs
   become: yes

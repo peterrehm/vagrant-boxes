@@ -44,7 +44,7 @@
 
 - name: Install xdebug
   become: yes
-  shell: pecl install xdebug-beta
+  shell: pecl install xdebug
 
 - name: Provide xdebug template
   become: yes

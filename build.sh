@@ -6,7 +6,7 @@ fi
 
 case $1 in
 
-    xenial-php72)
+    bionic-php72)
          grep -q $1 Vagrantfile
          if [ $? -eq 1 ]; then
            echo "Looks like you are in the wrong branch. Your Vagrantfile does not contain $1"
@@ -15,7 +15,7 @@ case $1 in
         ;;
 
     *)
-        echo $"Usage: $0 {xenial-php72}"
+        echo $"Usage: $0 {bionic-php72}"
         exit 1
 esac
 
@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-vagrant package --base xenial-php7.vb
+vagrant package --base bionic-php7.vb
 if [ $? -ne 0 ]; then
     exit 1
 fi
