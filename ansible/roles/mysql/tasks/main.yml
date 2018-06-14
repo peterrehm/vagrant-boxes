@@ -13,3 +13,11 @@
 - name: mysql | Copy config file with root credentials
   become: yes
   template: src=credentials.tpl dest=/etc/mysql/root.cnf
+
+- name: Set root password
+  become: yes
+  shell: mysql -e "UPDATE mysql.user SET authentication_string=PASSWORD('mysql') WHERE User = 'root'"
+
+- name: Flush privileges
+  become: yes
+  shell: mysql -e "FLUSH PRIVILEGES"
