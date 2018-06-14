@@ -16,7 +16,7 @@
 
 - name: Set root password
   become: yes
-  shell: mysql -e "UPDATE mysql.user SET authentication_string=PASSWORD('mysql') WHERE User = 'root'"
+  shell: mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';"
 
 - name: Flush privileges
   become: yes
