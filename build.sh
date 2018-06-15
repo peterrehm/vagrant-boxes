@@ -39,22 +39,22 @@ fi
 # create a new version
 curl \
   --header "Content-Type: application/json" \
-  --header 'Authorization: Bearer "$3"' \
+  --header "Authorization: Bearer $3" \
   https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/versions \
-  --data '{ "version": { "version": "$2" } }'
+  --data "{ \"version\": { \"version\": \"$2\" } }"
 
 # add a new provider
 curl \
   --header "Content-Type: application/json" \
-  --header 'Authorization: Bearer "$3"' \
+  --header "Authorization: Bearer $3" \
   https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/providers \
   --data '{ "provider": { "name": "virtualbox" } }'
 
 # 2-step upload process
-curl --request PUT --upload-file package.box $(curl -sS --header 'Authorization: Bearer "$3"' https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/provider/virtualbox/upload | grep -Po '(?<="upload_path":")[^"]*')
+curl --request PUT --upload-file package.box $(curl -sS --header "Authorization: Bearer $3" https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/provider/virtualbox/upload | grep -Po '(?<="upload_path":")[^"]*')
 
 # release the version
 curl \
-  --header 'Authorization: Bearer "$3"' \
+  --header "Authorization: Bearer $3" \
   https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/release \
   --request PUT
