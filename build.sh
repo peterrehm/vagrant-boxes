@@ -36,21 +36,25 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-curl https://vagrantcloud.com/api/v1/box/peterrehm/"$1"/versions \
-        -X POST \
-        -d version[version]="$2" \
-        -d access_token="$3"
+# create a new version
+curl \
+  --header "Content-Type: application/json" \
+  --header 'Authorization: Bearer "$3"' \
+  https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/versions \
+  --data '{ "version": { "version": "$2" } }'
 
 # add a new provider
-curl https://vagrantcloud.com/api/v1/box/peterrehm/"$1"/version/"$2"/providers \
--X POST \
--d provider[name]='virtualbox' \
--d access_token="$3"
+curl \
+  --header "Content-Type: application/json" \
+  --header 'Authorization: Bearer "$3"' \
+  https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/providers \
+  --data '{ "provider": { "name": "virtualbox" } }'
 
 # 2-step upload process
-curl -X PUT --upload-file package.box $(curl -sS https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/provider/virtualbox/upload?access_token="$3" | grep -Po '(?<="upload_path":")[^"]*')
+curl --request PUT --upload-file package.box $(curl -sS --header 'Authorization: Bearer "$3"' https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/provider/virtualbox/upload | grep -Po '(?<="upload_path":")[^"]*')
 
 # release the version
-curl https://atlas.hashicorp.com/api/v1/box/peterrehm/"$1"/version/"$2"/release \
-        -X PUT \
-        -d access_token="$3"
+curl \
+  --header 'Authorization: Bearer "$3"' \
+  https://app.vagrantup.com/api/v1/box/peterrehm/"$1"/version/"$2"/release \
+  --request PUT
