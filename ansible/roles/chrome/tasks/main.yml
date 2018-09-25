@@ -12,8 +12,8 @@
 
 - name: Install Google Chrome Stable
   become: yes
-  apt: pkg=google-chrome-stable state=installed
+  apt: pkg=google-chrome-stable state=present
 
 - name: Install Google Chrome Unstable
   become: yes
-  apt: pkg=google-chrome-unstable state=installed
+  apt: pkg=google-chrome-unstable state=present
