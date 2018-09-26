@@ -94,6 +94,10 @@
   become: yes
   lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost {{ hostname }}' owner=root group=root mode=0644
 
+- name: Configure the DNS
+  become: yes
+  template: src=resolved.tpl dest=/etc/systemd/resolved.conf
+
 - name: Install uglifyjs and uglifycss
   become: yes
   shell: npm install uglifycss -g && npm install uglify-js -g
