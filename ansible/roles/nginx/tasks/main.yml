@@ -7,9 +7,14 @@
   become: yes
   apt: pkg=nginx state=latest
 
-- name: Change default nginx site
+- name: Change default symfony4 nginx site
   become: yes
-  template: src={{ ws_template }} dest={{ ws_vhost_path }}/{{ ws_vhost_file }}
+  template: src=default.tpl dest=/etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: Change default symfony2 nginx site
+  become: yes
+  template: src=default.tpl dest=/etc/nginx/sites-available/default-symfony2
   notify: restart nginx
 
 - name: Update the vagrant user permissions
