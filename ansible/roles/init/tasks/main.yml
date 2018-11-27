@@ -45,6 +45,7 @@
     - build-essential
     - mydumper
     - imagemagick
+    - unzip
 
 - name: Install pdftk and dependencies since this is not any more included with the bionic packages
   become: yes
