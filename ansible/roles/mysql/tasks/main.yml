@@ -2,13 +2,12 @@
 - name: mysql | Install MySQL Packages
   become: yes
   apt:
-    pkg: '{{ item }}'
+    pkg:
+      - mysql-server
+      - mysql-client
+      - python-mysqldb
     state: latest
     update_cache: true
-  with_items:
-    - mysql-server
-    - mysql-client
-    - python-mysqldb
 
 - name: mysql | Copy config file with root credentials
   become: yes

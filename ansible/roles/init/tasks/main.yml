@@ -23,29 +23,31 @@
 
 - name: Install System Packages
   become: yes
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - curl
-    - wget
-    - software-properties-common
-    - npm
-    - libfontconfig1
-    - silversearcher-ag
-    - a2ps
-    - fontconfig
-    - xfonts-base
-    - xfonts-75dpi
-    - xfonts-utils
-    - libsasl2-dev
-    - pkg-config
-    - language-pack-en-base
-    - libx11-6
-    - libxext6
-    - libxrender1
-    - build-essential
-    - mydumper
-    - imagemagick
-    - unzip
+  apt:
+    pkg:
+      - curl
+      - wget
+      - software-properties-common
+      - npm
+      - libfontconfig1
+      - silversearcher-ag
+      - a2ps
+      - fontconfig
+      - xfonts-base
+      - xfonts-75dpi
+      - xfonts-utils
+      - libsasl2-dev
+      - pkg-config
+      - language-pack-en-base
+      - libx11-6
+      - libxext6
+      - libxrender1
+      - build-essential
+      - mydumper
+      - imagemagick
+      - unzip
+      - git
+    state: latest
 
 - name: Install pdftk and dependencies since this is not any more included with the bionic packages
   become: yes
@@ -67,11 +69,6 @@
 - name: Update apt
   become: yes
   apt: update_cache=yes
-
-- name: Install Extra Packages
-  become: yes
-  apt: pkg={{ item }} state=latest
-  with_items: "{{sys_packages}}"
 
 - name: Configure the timezone
   become: yes

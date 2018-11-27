@@ -10,9 +10,12 @@
 
 - name: mongo | Install Mongodb Packages
   become: yes
-  apt: pkg={{ item }} state=latest update_cache=yes allow_unauthenticated=yes
-  with_items:
-    - mongodb-org
+  apt:
+    pkg:
+      - mongodb-org
+    state: latest
+    update_cache: yes
+    allow_unauthenticated: yes
 
 - name: mongo | Copy systemd configuration
   become: yes
