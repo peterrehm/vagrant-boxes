@@ -3,7 +3,7 @@ server {
 
     client_max_body_size 2M;
 
-    root {{ doc_root }};
+    root /vagrant/web;
     index app.php app_dev.php;
 
     server_name {{ servername }};
