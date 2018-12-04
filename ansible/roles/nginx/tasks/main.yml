@@ -14,7 +14,7 @@
 
 - name: Change default symfony2 nginx site
   become: yes
-  template: src=default.tpl dest=/etc/nginx/sites-available/default-symfony2
+  template: src=default-symfony2.tpl dest=/etc/nginx/sites-available/default-symfony2
   notify: restart nginx
 
 - name: Update the vagrant user permissions
