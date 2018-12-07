@@ -36,11 +36,11 @@ curl https://atlas.hashicorp.com/api/v1/box/peterrehm/bionic-php7/version/0.1.0/
 -d access_token={token}
 
 # 2-step upload process
-curl https://atlas.hashicorp.com/api/v1/box/peterrehm/bionic-php72/version/0.1.0/provider/virtualbox/upload?access_token={token}
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/bionic-php73/version/0.1.0/provider/virtualbox/upload?access_token={token}
 curl -X PUT --upload-file package.box https://binstore.hashicorp.com/{response token of previous command}
 
 # release the version
-curl https://atlas.hashicorp.com/api/v1/box/peterrehm/bionic-php72/version/0.1.0/release \
+curl https://atlas.hashicorp.com/api/v1/box/peterrehm/bionic-php73/version/0.1.0/release \
         -X PUT \
         -d access_token={token}
 ````

@@ -6,7 +6,7 @@ fi
 
 case $1 in
 
-    bionic-php72)
+    bionic-php73)
          grep -q $1 Vagrantfile
          if [ $? -eq 1 ]; then
            echo "Looks like you are in the wrong branch. Your Vagrantfile does not contain $1"
@@ -15,7 +15,7 @@ case $1 in
         ;;
 
     *)
-        echo $"Usage: $0 {bionic-php72}"
+        echo $"Usage: $0 {bionic-php73}"
         exit 1
 esac
 
