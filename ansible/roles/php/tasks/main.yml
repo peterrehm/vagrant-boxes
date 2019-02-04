@@ -43,14 +43,29 @@
               regexp='memory_limit ='
               line='memory_limit = 1024M'
 
+- name: Install pcov
+  become: yes
+  shell: pecl install pcov
+
+- name: Provide pcov template
+  become: yes
+  template: src=20-pcov.ini dest=/etc/php/7.3/mods-available/pcov.ini
+  notify: restart php-fpm
+
 - name: Install xdebug
   become: yes
   shell: pecl install xdebug-2.7.0beta1
 
 - name: Provide xdebug template
   become: yes
-  template: src=20-xdebug.ini dest=/etc/php/7.3/fpm/conf.d/20-xdebug.ini
-  notify: restart php-fpm
+  template: src=20-xdebug.ini dest=/etc/php/7.3/mods-available/xdebug.ini
+
+- name: Enable xdebug fpm
+  become: yes
+  file:
+    src: "/etc/php/7.3/mods-available/xdebug.ini"
+    dest: "/etc/php/7.3/fpm/conf.d/20-xdebug.ini"
+    state: link
 
 - name: Install apcu
   become: yes

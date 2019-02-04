@@ -8,6 +8,10 @@ server {
 
     server_name {{ servername }};
 
+    location /maintenance.jpg {
+        break;
+    }
+
     location / {
         if (-f $document_root/.enabled_maintenance_mode) {
             return 503;
@@ -28,7 +32,6 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
-        fastcgi_param HTTPS off;
         # Prevents URIs that include the front controller. This will 404:
         # http://domain.tld/index.php/some-path
         # Remove the internal directive to allow URIs like this
