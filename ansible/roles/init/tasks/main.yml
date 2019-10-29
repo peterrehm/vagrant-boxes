@@ -49,14 +49,9 @@
       - git
     state: latest
 
-- name: Install pdftk and dependencies since this is not any more included with the bionic packages
+- name: Install pdftk and dependencies since this is not any more included with the bionic packages using snap
   become: yes
-  apt:
-    deb: "{{ item }}"
-  with_items:
-    - "http://de.archive.ubuntu.com/ubuntu/pool/main/g/gcc-defaults/libgcj-common_6.4-3ubuntu1_all.deb"
-    - "http://de.archive.ubuntu.com/ubuntu/pool/main/g/gcc-6/libgcj17_6.4.0-8ubuntu1_amd64.deb"
-    - "http://archive.ubuntu.com/ubuntu/pool/universe/p/pdftk/pdftk_2.02-4build1_amd64.deb"
+  shell: snap install pdftk
 
 - name: Install phantomjs
   become: yes
