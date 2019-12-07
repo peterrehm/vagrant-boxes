@@ -1,6 +1,6 @@
 ##################################################
 # Vagrant Configuration
-# bionic-php73
+# bionic-php74
 ##################################################
 
 Vagrant.require_version ">=2.1.1"

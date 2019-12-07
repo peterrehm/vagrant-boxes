@@ -1,4 +1,4 @@
 ---
 - name: restart php-fpm
   become: true
-  service: name=php7.3-fpm enabled=yes state=restarted
+  service: name=php7.4-fpm enabled=yes state=restarted
