@@ -47,6 +47,7 @@
       - imagemagick
       - unzip
       - git
+      - yarn
     state: latest
 
 - name: Add ppa Repository pdftk
