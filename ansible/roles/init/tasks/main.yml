@@ -48,27 +48,17 @@
       - unzip
       - git
       - yarn
+      - pdftk-java
+      - gnupg2
     state: latest
-
-- name: Add ppa Repository pdftk
-  become: yes
-  apt_repository:
-    repo: ppa:malteworld/ppa
 
 - name: Add ppa Repository PHP
   become: yes
-  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+  apt_repository: repo=ppa:ondrej/php
 
 - name: Update apt
   become: yes
   apt: update_cache=yes
-
-- name: Install pdftk using ppa (Will not be required > Ubuntu 18.10)
-  become: yes
-  apt:
-    pkg:
-      - pdftk
-    state: latest
 
 - name: Install phantomjs
   become: yes

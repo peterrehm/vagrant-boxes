@@ -1,0 +1,8 @@
+---
+- name: pgsql | Install pgsql Packages
+  become: yes
+  apt:
+    pkg:
+      - postgresql-12
+    state: latest
+    update_cache: true

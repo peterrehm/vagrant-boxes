@@ -15,7 +15,20 @@
 - name: Install PHP Packages
   become: yes
   apt:
-    pkg: "{{php_packages}}"
+    pkg:
+      - "php7.4-cli"
+      - "php7.4-curl"
+      - "php7.4-common"
+      - "php7.4-mysql"
+      - "php7.4-pgsql"
+      - "php7.4-gd"
+      - "php7.4-intl"
+      - "php7.4-opcache"
+      - "php7.4-dev"
+      - "php7.4-bcmath"
+      - "php7.4-zip"
+      - "php7.4-mbstring"
+      - "php7.4-xml"
     state: latest
 
 - name: Set permissions on socket - owner
@@ -109,7 +122,8 @@
     owner="root"
     group="root"
     mode=0644
-  with_items: "{{pecl_packages}}"
+  with_items:
+    - mongodb
 
 - name: Enable extension on cli
   become: yes
@@ -117,7 +131,8 @@
     src: "/etc/php/7.4/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.4/cli/conf.d/20-{{ item }}.ini"
     state: link
-  with_items: "{{pecl_packages}}"
+  with_items:
+    - mongodb
 
 - name: Enable extension on fpm
   become: yes
@@ -125,4 +140,5 @@
     src: "/etc/php/7.4/mods-available/{{ item }}.ini"
     dest: "/etc/php/7.4/fpm/conf.d/20-{{ item }}.ini"
     state: link
-  with_items: "{{pecl_packages}}"
+  with_items:
+    - mongodb

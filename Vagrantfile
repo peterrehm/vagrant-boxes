@@ -1,6 +1,6 @@
 ##################################################
 # Vagrant Configuration
-# bionic-php74
+# focal-php74
 ##################################################
 
 Vagrant.require_version ">=2.1.1"
@@ -10,18 +10,18 @@ ENV['PYTHONIOENCODING'] = "utf-8"
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "bionic-php7.vb"
+        v.name = "focal-php7.vb"
         v.customize [
             "modifyvm", :id,
-            "--name", "bionic-php7.vb",
+            "--name", "focal-php7.vb",
             "--memory", 2048,
             "--natdnshostresolver1", "on",
             "--cpus", 1,
         ]
     end
 
-    config.vm.hostname = "bionic-php7.vb"
-    config.vm.box = "bento/ubuntu-18.04"
+    config.vm.hostname = "focal-php7.vb"
+    config.vm.box = "bento/ubuntu-20.04"
 
     config.vm.network :private_network, ip: "10.10.10.10"
     config.ssh.forward_agent = true
@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
         ansible.limit = 'all'
         ansible.extra_vars = {
             private_interface: "10.10.10.10",
-            hostname: "bionic-php7.vb"
+            hostname: "focal-php7.vb"
         }
     end
 end

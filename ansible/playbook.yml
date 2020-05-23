@@ -2,16 +2,14 @@
 - hosts: all
   vars:
     web_server: nginxphp
-    servername: bionic-php7.vb 10.10.10.10
+    servername: focal-php7.vb 10.10.10.10
   vars_files:
-    - vars/mysql.yml
-    - vars/common.yml
-    - vars/nginxphp.yml
   roles:
     - init
     - php
     - nginx
     - mysql
+    - pgsql
     - mongodb
     - composer
     - chrome

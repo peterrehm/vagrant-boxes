@@ -1,5 +1,0 @@
----
-    php_ppa: "php"
-    dist: precise
-    php_packages: ["php7.4-cli","php7.4-curl","php7.4-common","php7.4-mysql","php7.4-gd","php7.4-intl","php7.4-opcache", "php7.4-dev", "php7.4-bcmath", "php7.4-zip", "php7.4-mbstring", "php7.4-xml"]
-    pecl_packages: ["mongodb"]
