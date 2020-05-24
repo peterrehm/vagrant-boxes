@@ -1,0 +1,4 @@
+---
+- name: apt | Remove apt archives
+  become: yes
+  shell: apt-get clean
