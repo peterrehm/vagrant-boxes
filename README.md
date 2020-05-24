@@ -8,7 +8,7 @@ MongoDB, NGINX and other needed tools. Since the configuration is documented wit
 ansible scripts it is easy to setup similar production nodes. 
 
 The official supported boxes are provided through https://atlas.hashicorp.com. At the 
-moment `peterrehm/focal-php74` (based on `bento/ubuntu-18.04`) is supported.
+moment `peterrehm/focal-php74` (based on `bento/ubuntu-20.04`) is supported.
 
 If you want to build your own boxes it is as easy as
 
