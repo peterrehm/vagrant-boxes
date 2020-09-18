@@ -21,6 +21,26 @@
   become: yes
   shell: adduser vagrant www-data
 
+- name: Add an apt key by id from a keyserver
+  become: yes
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add ppa Repository PHP
+  become: yes
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+    state: present
+    filename: yarn
+    update_cache: yes
+
+- name: Remove "cmdtest" package as it conflicts with yarn
+  become: yes
+  apt:
+    name: cmdtest
+    state: absent
+
 - name: Install System Packages
   become: yes
   apt:
