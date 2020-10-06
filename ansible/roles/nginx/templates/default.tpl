@@ -29,6 +29,8 @@ server {
     location ~ ^/index\.php(/|$) {
         fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_buffers 8 8k;
+        fastcgi_buffer_size 16k;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
