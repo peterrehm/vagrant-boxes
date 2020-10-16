@@ -2,7 +2,7 @@
 - hosts: all
   vars:
     web_server: nginxphp
-    servername: focal-php7.vb 10.10.10.10
+    servername: focal-php8.vb 10.10.10.10
   vars_files:
   roles:
     - init

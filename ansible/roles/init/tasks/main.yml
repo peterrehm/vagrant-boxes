@@ -27,7 +27,7 @@
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     state: present
 
-- name: Add ppa Repository PHP
+- name: Add ppa Repository yarn
   become: yes
   apt_repository:
     repo: deb https://dl.yarnpkg.com/debian/ stable main

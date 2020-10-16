@@ -1,58 +1,58 @@
 - name: Install php-cli
   become: yes
-  apt: pkg=php7.4-cli state=latest
+  apt: pkg=php8.0-cli state=latest
 
 - name: ensure timezone is set in cli php.ini
   become: yes
-  lineinfile: dest='/etc/php/7.4/cli/php.ini'
+  lineinfile: dest='/etc/php/8.0/cli/php.ini'
               regexp='date.timezone ='
               line='date.timezone = Europe/Berlin'
 
 - name: Install php-fpm
   become: yes
-  apt: pkg=php7.4-fpm state=latest
+  apt: pkg=php8.0-fpm state=latest
 
 - name: Install PHP Packages
   become: yes
   apt:
     pkg:
-      - "php7.4-cli"
-      - "php7.4-curl"
-      - "php7.4-common"
-      - "php7.4-mysql"
-      - "php7.4-pgsql"
-      - "php7.4-gd"
-      - "php7.4-intl"
-      - "php7.4-opcache"
-      - "php7.4-dev"
-      - "php7.4-bcmath"
-      - "php7.4-zip"
-      - "php7.4-mbstring"
-      - "php7.4-xml"
+      - "php8.0-cli"
+      - "php8.0-curl"
+      - "php8.0-common"
+      - "php8.0-mysql"
+      - "php8.0-pgsql"
+      - "php8.0-gd"
+      - "php8.0-intl"
+      - "php8.0-opcache"
+      - "php8.0-dev"
+      - "php8.0-bcmath"
+      - "php8.0-zip"
+      - "php8.0-mbstring"
+      - "php8.0-xml"
     state: latest
 
 - name: Set permissions on socket - owner
   become: yes
-  lineinfile: "dest=/etc/php/7.4/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = www-data'"
+  lineinfile: "dest=/etc/php/8.0/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = www-data'"
 
 - name: Set permissions on socket - group
   become: yes
-  lineinfile: "dest=/etc/php/7.4/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = www-data'"
+  lineinfile: "dest=/etc/php/8.0/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = www-data'"
 
 - name: Set permissions on socket - mode
   become: yes
-  lineinfile: "dest=/etc/php/7.4/fpm/pool.d/www.conf state=present regexp='^;?listen.mode' line='listen.mode = 0660'"
+  lineinfile: "dest=/etc/php/8.0/fpm/pool.d/www.conf state=present regexp='^;?listen.mode' line='listen.mode = 0660'"
   notify: restart php-fpm
 
 - name: ensure timezone is set in fpm php.ini
   become: yes
-  lineinfile: dest=/etc/php/7.4/fpm/php.ini
+  lineinfile: dest=/etc/php/8.0/fpm/php.ini
               regexp='date.timezone ='
               line='date.timezone = Europe/Berlin'
 
 - name: ensure memory limit is 1024M php.ini
   become: yes
-  lineinfile: dest='/etc/php/7.4/fpm/php.ini'
+  lineinfile: dest='/etc/php/8.0/fpm/php.ini'
               regexp='memory_limit ='
               line='memory_limit = 1024M'
 
@@ -66,79 +66,42 @@
 
 - name: Provide pcov template
   become: yes
-  template: src=20-pcov.ini dest=/etc/php/7.4/mods-available/pcov.ini
+  template: src=20-pcov.ini dest=/etc/php/8.0/mods-available/pcov.ini
   notify: restart php-fpm
 
 - name: Install xdebug
   become: yes
-  shell: pecl install xdebug
+  shell: pecl install xdebug-3.0.0beta1
 
 - name: Provide xdebug template
   become: yes
-  template: src=20-xdebug.ini dest=/etc/php/7.4/mods-available/xdebug.ini
+  template: src=20-xdebug.ini dest=/etc/php/8.0/mods-available/xdebug.ini
 
 - name: Enable xdebug fpm
   become: yes
   file:
-    src: "/etc/php/7.4/mods-available/xdebug.ini"
-    dest: "/etc/php/7.4/fpm/conf.d/20-xdebug.ini"
+    src: "/etc/php/8.0/mods-available/xdebug.ini"
+    dest: "/etc/php/8.0/fpm/conf.d/20-xdebug.ini"
     state: link
 
 - name: Install apcu
   become: yes
   shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu
 
-- name: Install apcu apc bc layer
+- name: Provide apcu template
   become: yes
-  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install apcu_bc-1.0.5
+  template: src=20-apcu.ini dest=/etc/php/8.0/mods-available/apcu.ini
 
-- name: Provide apc template
-  become: yes
-  template: src=20-apc.ini dest=/etc/php/7.4/mods-available/apc.ini
-
-- name: Install mongodb
-  become: yes
-  shell: pecl install mongodb
-
-- name: Enable apc extension on cli
+- name: Enable apcu extension on cli
   become: yes
   file:
-    src: "/etc/php/7.4/mods-available/apc.ini"
-    dest: "/etc/php/7.4/cli/conf.d/20-apc.ini"
+    src: "/etc/php/8.0/mods-available/apcu.ini"
+    dest: "/etc/php/8.0/cli/conf.d/20-apcu.ini"
     state: link
 
 - name: Enable apc extension on fpm
   become: yes
   file:
-    src: "/etc/php/7.4/mods-available/apc.ini"
-    dest: "/etc/php/7.4/fpm/conf.d/20-apc.ini"
+    src: "/etc/php/8.0/mods-available/apcu.ini"
+    dest: "/etc/php/8.0/fpm/conf.d/20-apcu.ini"
     state: link
-
-- name: Create extension .ini file
-  become: yes
-  template: >
-    src="extension.tpl"
-    dest="/etc/php/7.4/mods-available/{{ item }}.ini"
-    owner="root"
-    group="root"
-    mode=0644
-  with_items:
-    - mongodb
-
-- name: Enable extension on cli
-  become: yes
-  file:
-    src: "/etc/php/7.4/mods-available/{{ item }}.ini"
-    dest: "/etc/php/7.4/cli/conf.d/20-{{ item }}.ini"
-    state: link
-  with_items:
-    - mongodb
-
-- name: Enable extension on fpm
-  become: yes
-  file:
-    src: "/etc/php/7.4/mods-available/{{ item }}.ini"
-    dest: "/etc/php/7.4/fpm/conf.d/20-{{ item }}.ini"
-    state: link
-  with_items:
-    - mongodb
