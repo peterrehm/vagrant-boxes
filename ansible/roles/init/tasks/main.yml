@@ -70,7 +70,13 @@
       - yarn
       - pdftk-java
       - gnupg2
+      - python3-pip
     state: latest
+
+# not needed in any production setup
+- name: Install pymysql for ansible
+  become: yes
+  shell: pip3 install pymysql
 
 - name: Add ppa Repository PHP
   become: yes
